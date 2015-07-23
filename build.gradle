@@ -5,7 +5,7 @@ buildscript {
 		springSecurityVersion = '4.0.1.RELEASE'
 		springVersion = '4.1.6.RELEASE'
 		springEurekaVersion = '1.0.3.RELEASE'
-    springCloudStarterParentTrain = 'Angel.SR3'
+    	springCloudStarterParentTrain = 'Angel.SR3'
 		junitVersion = '4.12'
 		jacksonVersion = '2.5.3'
 		mysqlVersion = '5.1.35'
@@ -95,9 +95,10 @@ project(':springboottrades-quotes') {
     dependencies {
 		compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
 		compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+		compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
 		compile "org.springframework:spring-web:${springVersion}"
 		compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+    	compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 		//runtime
 
