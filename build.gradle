@@ -75,7 +75,8 @@ project(':springboottrades-accounts') {
 		//compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 		//compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+    	compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+		compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 		// test packages
 		testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
@@ -102,7 +103,6 @@ project(':springboottrades-quotes') {
 
 		//runtime
 
-
 		//test packages
 		testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 		testRuntime "com.jayway.jsonpath:json-path"
@@ -121,15 +121,16 @@ project(':springboottrades-portfolio') {
 		compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 		compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
 		//compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+    	compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+		compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 		//runtime
-		//runtime "mysql:mysql-connector-java:${mysqlVersion}"
-		runtime "org.hsqldb:hsqldb"
+		runtime "mysql:mysql-connector-java:${mysqlVersion}"
+		//runtime "org.hsqldb:hsqldb"
 
 		//test packages
 		testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testRuntime "com.jayway.jsonpath:json-path:2.0.0"
+    	testRuntime "com.jayway.jsonpath:json-path:2.0.0"
 		testRuntime "org.hsqldb:hsqldb"
     }
 }
@@ -146,11 +147,12 @@ project(':springboottrades-web') {
 		//compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
 		compile "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 		compile "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
-    compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
-    compile "org.springframework.cloud:spring-cloud-starter-hystrix:${springEurekaVersion}"
-    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
-    compile "org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard:${springEurekaVersion}"
+    	compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+    	compile "org.springframework.cloud:spring-cloud-starter-hystrix:${springEurekaVersion}"
+    	compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    	compile "org.springframework.cloud:spring-cloud-netflix-hystrix-dashboard:${springEurekaVersion}"
 		compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE"
+		compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 		runtime "org.webjars:bootstrap:${bootstrapVersion}"
 
