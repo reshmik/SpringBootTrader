@@ -5,7 +5,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://${vcap.services.eureka-service.credentials.uri:127.0.0.1:8761}/eureka/
+      defaultZone: ${vcap.services.trader-registry.credentials.uri:http://127.0.0.1:8761}/eureka/
   instance:
     hostname: ${vcap.application.uris[0]:localhost} 
     metadataMap:
