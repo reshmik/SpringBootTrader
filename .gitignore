@@ -1,0 +1,11 @@
+.gradle
+.idea
+springboottrades-accounts/build
+springboottrades-portfolio/build
+springboottrades-quotes/build
+springboottrades-web/build
+SpringTrader.iml
+springboottrades-web/springboottrades-web.iml
+springboottrades-quotes/springboottrades-quotes.iml
+springboottrades-portfolio/springboottrades-portfolio.iml
+springboottrades-accounts/springboottrades-accounts.iml
