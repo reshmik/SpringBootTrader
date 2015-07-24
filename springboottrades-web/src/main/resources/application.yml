@@ -43,4 +43,4 @@ logging:
            cloud: WARN
      com:
        netflix:
-         hystrix: DEBUG
+         hystrix: WARN

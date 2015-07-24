@@ -10,3 +10,4 @@ applications:
   path: springboottrades-web/build/libs/web-0.2.jar
   services:
     - trader-registry
+    - trader-dashboard
