@@ -15,7 +15,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableCircuitBreaker
 public class QuotesApplication {
 	
 	public static void main(String[] args) {
