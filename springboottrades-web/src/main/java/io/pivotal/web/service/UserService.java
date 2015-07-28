@@ -24,7 +24,7 @@ public class UserService {
 	
 	public void createAccount(Account account) {
 		logger.debug("Saving account with userId: " + account.getUserid());
-		String status = restTemplate.postForObject("http://accounts/account/", account, String.class);
+		String status = restTemplate.postForObject("http://account-service/account/", account, String.class);
 		logger.info("Status from registering account for "+ account.getUserid()+ " is " + status);
 	}
 	
@@ -38,7 +38,7 @@ public class UserService {
 	public Account getAccount(String user) {
 		logger.debug("Looking for account with userId: " + user);
 		
-	    Account account = restTemplate.getForObject("http://accounts/account/?name={user}", Account.class, user);
+	    Account account = restTemplate.getForObject("http://account-service/account/?name={user}", Account.class, user);
 	    logger.debug("Got Account: " + account);
 	    return account;
 	}
@@ -46,7 +46,7 @@ public class UserService {
 	public void logout(String user) {
 		logger.debug("logging out account with userId: " + user);
 		
-	    ResponseEntity<?> response = restTemplate.getForEntity("http://accounts/logout/{user}", String.class, user);
+	    ResponseEntity<?> response = restTemplate.getForEntity("http://account-service/logout/{user}", String.class, user);
 	    logger.debug("Logout response: " + response.getStatusCode());
 	}
 	

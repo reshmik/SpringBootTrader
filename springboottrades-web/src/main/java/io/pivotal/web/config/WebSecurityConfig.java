@@ -46,6 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/webjars/**")
+                .antMatchers("/refresh")
+                .antMatchers("/env")
                 .antMatchers("/images/**").antMatchers("/css/**").antMatchers("/js/**");
     }
 	

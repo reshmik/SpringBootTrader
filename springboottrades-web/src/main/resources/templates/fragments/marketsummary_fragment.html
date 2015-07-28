@@ -2,7 +2,7 @@
 <th:block th:fragment="summary">
 	<div th:if="${marketSummary != null}" class="row show-table">
 		<div
-			th:include="fragments/marketsummary_fragment :: summary-quote(${marketSummary.topGainers},'IT VEndors')" th:remove="tag"></div>
+			th:include="fragments/marketsummary_fragment :: summary-quote(${marketSummary.topGainers},'IT Vendors')" th:remove="tag"></div>
 		<div
 			th:include="fragments/marketsummary_fragment :: summary-central" th:remove="tag"></div>	
 		<div

@@ -17,7 +17,9 @@ import io.pivotal.web.exception.OrderNotSavedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -29,20 +31,23 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @Service
 @EnableScheduling
+@RefreshScope
 public class MarketService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(MarketService.class);
 	private final static Integer QUOTES_NUMBER = 3;
-	
-	//10 minutes in milliseconds
-	private final static long REFRESH_PERIOD = 600000l;
+
+	//Every 30 Secs
+	private final static long REFRESH_PERIOD = 30000l;
 	
 	@Autowired
 	@LoadBalanced
 	private RestTemplate restTemplate;
-	
-	private static List<String> symbolsIT = Arrays.asList("EMC", "ORCL", "IBM", "INTC", "AMD", "HPQ", "CSCO", "AAPL");
-	private static List<String> symbolsFS = Arrays.asList("JPM", "C", "MS", "BAC", "GS", "WFC","BK");
+
+    @Value("${pivotal.app.symbols.it:EMC,IBM,VMW}")
+	private String symbolsIT;
+    @Value("${pivotal.app.symbols.fs:JPM,C,MS}")
+	private String symbolsFS;
 	
 	private MarketSummary summary = new MarketSummary();
 	
@@ -55,7 +60,7 @@ public class MarketService {
 	@HystrixCommand(fallbackMethod = "getQuoteFallback")
 	public Quote getQuote(String symbol) {
 		logger.debug("Fetching quote: " + symbol);
-		Quote quote = restTemplate.getForObject("http://quotes/quote/{symbol}", Quote.class, symbol);
+		Quote quote = restTemplate.getForObject("http://quote-service/quote/{symbol}", Quote.class, symbol);
 		return quote;
 	}
 	
@@ -67,10 +72,11 @@ public class MarketService {
 		quote.setStatus("FAILED");
 		return quote;
 	}
+
 	@HystrixCommand(fallbackMethod = "getCompaniesFallback")
 	public List<CompanyInfo> getCompanies(String name) {
 		logger.debug("Fetching companies with name or symbol matching: " + name);
-		CompanyInfo[] infos = restTemplate.getForObject("http://quotes/company/{name}", CompanyInfo[].class, name);
+		CompanyInfo[] infos = restTemplate.getForObject("http://quote-service/company/{name}", CompanyInfo[].class, name);
 		return Arrays.asList(infos);
 	}
 	private List<CompanyInfo> getCompaniesFallback(String name) {
@@ -85,7 +91,7 @@ public class MarketService {
 		
 		//check result of http request to ensure its ok.
 		
-		ResponseEntity<Order>  result = restTemplate.postForEntity("http://portfolio/portfolio/{accountId}", order, Order.class, order.getAccountId());
+		ResponseEntity<Order>  result = restTemplate.postForEntity("http://portfolio-service/portfolio/{accountId}", order, Order.class, order.getAccountId());
 		if (result.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR) {
 			throw new OrderNotSavedException("Could not save the order");
 		}
@@ -94,7 +100,7 @@ public class MarketService {
 	}
 	
 	public Portfolio getPortfolio(String accountId) {
-		Portfolio folio = restTemplate.getForObject("http://portfolio/portfolio/{accountid}", Portfolio.class, accountId);
+		Portfolio folio = restTemplate.getForObject("http://portfolio-service/portfolio/{accountid}", Portfolio.class, accountId);
 		logger.debug("Portfolio received: " + folio);
 		return folio;
 	}
@@ -103,8 +109,12 @@ public class MarketService {
 	@Scheduled(fixedRate = REFRESH_PERIOD)
 	protected void retrieveMarketSummary() {
 		logger.debug("Scheduled retrieval of Market Summary");
-		List<Quote> quotesIT = pickRandomThree(symbolsIT).parallelStream().map(symbol -> getQuote(symbol)).collect(Collectors.toList());
-		List<Quote> quotesFS = pickRandomThree(symbolsFS).parallelStream().map(symbol -> getQuote(symbol)).collect(Collectors.toList());
+
+        logger.debug("IT symbols: " + symbolsIT);
+        logger.debug("FS symbols: " + symbolsFS);
+
+		List<Quote> quotesIT = pickRandomThree(Arrays.asList(symbolsIT.split(","))).parallelStream().map(symbol -> getQuote(symbol)).collect(Collectors.toList());
+		List<Quote> quotesFS = pickRandomThree(Arrays.asList(symbolsFS.split(","))).parallelStream().map(symbol -> getQuote(symbol)).collect(Collectors.toList());
 		summary.setTopGainers(quotesIT);
 		summary.setTopLosers(quotesFS);
 	}

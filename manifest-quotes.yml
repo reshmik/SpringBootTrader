@@ -10,3 +10,4 @@ applications:
   path: springboottrades-quotes/build/libs/quotes-0.2.jar
   services:
     - trader-registry
+    - config-server

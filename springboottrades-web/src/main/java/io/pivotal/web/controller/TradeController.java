@@ -60,6 +60,7 @@ public class TradeController {
 		
 		return "trade";
 	}
+
 	@RequestMapping(value = "/trade", method = RequestMethod.POST)
 	public String showTrade(Model model, @ModelAttribute("search") Search search) {
 		logger.debug("/trade.POST - symbol: " + search.getName());

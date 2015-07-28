@@ -101,7 +101,7 @@ public class PortfolioService {
 	 */
 	private Quote getQuote(String symbol) {
 		logger.debug("Fetching quote: " + symbol);
-		Quote quote = restTemplate.getForObject("http://quotes/quote/{symbol}", Quote.class, symbol);
+		Quote quote = restTemplate.getForObject("http://quote-service/quote/{symbol}", Quote.class, symbol);
 		return quote;
 	}
 	
@@ -120,7 +120,7 @@ public class PortfolioService {
 		}
 		if (order.getOrderType() == OrderType.BUY) {
 			double amount = order.getQuantity()*order.getPrice().doubleValue()+order.getOrderFee().doubleValue();
-			ResponseEntity<Double>  result= restTemplate.getForEntity("http://accounts/accounts/{userid}/decreaseBalance/{amount}", Double.class, order.getAccountId(), amount);
+			ResponseEntity<Double>  result= restTemplate.getForEntity("http://account-service/accounts/{userid}/decreaseBalance/{amount}", Double.class, order.getAccountId(), amount);
 			if (result.getStatusCode() == HttpStatus.OK) {
 				logger.info(String.format("Account funds updated successfully for account: %s and new funds are: %s", order.getAccountId(), result.getBody()));
 				return repository.save(order);
@@ -131,7 +131,7 @@ public class PortfolioService {
 			}
 		} else {
 			double amount = order.getQuantity()*order.getPrice().doubleValue()-order.getOrderFee().doubleValue();
-			ResponseEntity<Double>  result= restTemplate.getForEntity("http://accounts/accounts/{userid}/increaseBalance/{amount}", Double.class, order.getAccountId(), amount);
+			ResponseEntity<Double>  result= restTemplate.getForEntity("http://account-service/accounts/{userid}/increaseBalance/{amount}", Double.class, order.getAccountId(), amount);
 			if (result.getStatusCode() == HttpStatus.OK) {
 				logger.info(String.format("Account funds updated successfully for account: %s and new funds are: %s", order.getAccountId(), result.getBody()));
 				return repository.save(order);
