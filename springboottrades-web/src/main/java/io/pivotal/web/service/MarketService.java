@@ -76,6 +76,10 @@ public class MarketService {
 	@HystrixCommand(fallbackMethod = "getCompaniesFallback")
 	public List<CompanyInfo> getCompanies(String name) {
 		logger.debug("Fetching companies with name or symbol matching: " + name);
+
+        //manually trip the circuit
+        if("xyz".equalsIgnoreCase(name)) throw new RuntimeException("That isn't a valid name!!!");
+
 		CompanyInfo[] infos = restTemplate.getForObject("http://quote-service/company/{name}", CompanyInfo[].class, name);
 		return Arrays.asList(infos);
 	}

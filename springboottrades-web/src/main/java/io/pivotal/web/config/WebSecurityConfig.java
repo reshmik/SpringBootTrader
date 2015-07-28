@@ -48,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/webjars/**")
                 .antMatchers("/refresh")
                 .antMatchers("/env")
+                .antMatchers("/hystrix.stream")
                 .antMatchers("/images/**").antMatchers("/css/**").antMatchers("/js/**");
     }
 	
