@@ -11,3 +11,4 @@ applications:
   services:
     - trader-db
     - trader-registry
+    - trader-config

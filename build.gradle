@@ -85,10 +85,10 @@ project(':springboottrades-accounts') {
 	dependencies {
 		compile "org.springframework.boot:spring-boot-starter:${springBootVersion}"
 		compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-		//compile "org.springframework.security:spring-security-web:$springSecurityVersion"
 		compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
-		//compile "org.springframework.security:spring-security-config:$springSecurityVersion"
 		compile "org.springframework.cloud:spring-cloud-starter-eureka:${springEurekaVersion}"
+		compile "org.springframework.cloud:spring-cloud-starter-config:${springEurekaVersion}"
+		compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 
 		// test packages
 		testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
