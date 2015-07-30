@@ -46,9 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web
                 .ignoring()
                 .antMatchers("/webjars/**")
-                .antMatchers("/refresh")
-                .antMatchers("/env")
-                .antMatchers("/hystrix.stream")
+                //actuator endpoints
+                .antMatchers("/refresh").antMatchers("/env").antMatchers("/health").antMatchers("/hystrix.stream")
                 .antMatchers("/images/**").antMatchers("/css/**").antMatchers("/js/**");
     }
 	
