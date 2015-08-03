@@ -60,6 +60,10 @@ public class MarketService {
 	@HystrixCommand(fallbackMethod = "getQuoteFallback")
 	public Quote getQuote(String symbol) {
 		logger.debug("Fetching quote: " + symbol);
+
+		//manually trip the circuit
+		if("xyz".equalsIgnoreCase(symbol)) throw new RuntimeException("That isn't a valid name!!!");
+
 		Quote quote = restTemplate.getForObject("http://quote-service/quote/{symbol}", Quote.class, symbol);
 		return quote;
 	}
