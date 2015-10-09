@@ -37,8 +37,7 @@ public class MarketService {
 			.getLogger(MarketService.class);
 	private final static Integer QUOTES_NUMBER = 3;
 
-	//Every 30 Secs
-	private final static long REFRESH_PERIOD = 30000l;
+	private final static long REFRESH_PERIOD = 60000l;
 	
 	@Autowired
 	@LoadBalanced
