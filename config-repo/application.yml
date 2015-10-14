@@ -17,8 +17,8 @@ logging:
      com:
         netflix: WARN
 
-endpoints
-   health
+endpoints:
+   health:
      sensitive: false
      
 spring:
