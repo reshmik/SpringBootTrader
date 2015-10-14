@@ -5,7 +5,7 @@ info:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://10.254.1.122}/eureka/
+      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
   instance:
     hostname: ${vcap.application.uris[0]:localhost}
     metadataMap:
