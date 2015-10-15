@@ -5,7 +5,7 @@ info:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${vcap.services.eureka-service.credentials.uri:http://127.0.0.1:8761}/eureka/
+      defaultZone: ${vcap.services.trader-registry.credentials.uri:http://127.0.0.1:8761}/eureka/
   instance:
     hostname: ${vcap.application.uris[0]:localhost}
     metadataMap:
@@ -20,7 +20,7 @@ logging:
 endpoints:
    health:
      sensitive: false
-     
+
 spring:
    zipkin:
       host: opsmgr.vert.fe.gopivotal.com
