@@ -17,9 +17,18 @@ logging:
      com:
         netflix: WARN
 
-endpoints
-   health
+endpoints:
+   health:
      sensitive: false
+
+spring:
+   zipkin:
+      host: opsmgr.vert.fe.gopivotal.com
+      port: 9410
+   sleuth:
+      log:
+        json:
+          enabled: true
 ---
 spring:
   profiles: cloud
