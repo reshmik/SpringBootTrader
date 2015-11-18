@@ -22,9 +22,6 @@ endpoints:
      sensitive: false
 
 spring:
-   zipkin:
-      host: opsmgr.vert.fe.gopivotal.com
-      port: 9410
    sleuth:
       log:
         json:
@@ -34,8 +31,8 @@ spring:
   profiles: cloud
 eureka:
   instance:
-     hostname: ${vcap.application.uris[0]}
      nonSecurePort: 80
+
 ---
 spring:
   profiles: local
